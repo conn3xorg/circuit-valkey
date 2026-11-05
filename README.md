@@ -16,7 +16,7 @@ variable "valkey_password" {
 }
 
 module "valkey" {
-  source = "github.com/conn3xorg/circuit-valkey?ref=v0.1.1"
+  source = "github.com/conn3xorg/circuit-valkey?ref=v0.2.0"
 
   hosts                = { cache = "192.168.1.40" }
   ssh_private_key_file = "~/.ssh/id_ed25519"
