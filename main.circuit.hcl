@@ -86,9 +86,9 @@ circuit "valkey_selinux" {
 
   step "port" {
     for_each = var.port == 6379 ? [] : [tostring(var.port)]
-    command {
-      command = "semanage port -a -t redis_port_t -p tcp ${item.value} || semanage port -m -t redis_port_t -p tcp ${item.value}"
-      unless  = "! selinuxenabled || semanage port -l | awk '$1 == \"redis_port_t\" && $2 == \"tcp\"' | grep -qw ${item.value}"
+    selinux_port {
+      port   = item.value
+      setype = "redis_port_t"
     }
   }
 }
@@ -158,7 +158,7 @@ circuit "valkey" {
   # below finds it running with the new settings. A restart saves the
   # dataset first when persistence is on, and loads it again on start.
   step "restart" {
-    depends_on = [conn3x_command.valkey_selinux__port, conn3x_sysctl.valkey__overcommit]
+    depends_on = [conn3x_selinux_port.valkey_selinux__port, conn3x_sysctl.valkey__overcommit]
     command {
       command = "systemctl restart ${local.service[each.key]}"
       triggers = {
