@@ -159,8 +159,8 @@ circuit "valkey" {
   # dataset first when persistence is on, and loads it again on start.
   step "restart" {
     depends_on = [conn3x_selinux_port.valkey_selinux__port, conn3x_sysctl.valkey__overcommit]
-    command {
-      command = "systemctl restart ${local.service[each.key]}"
+    service_action {
+      name = local.service[each.key]
       triggers = {
         config  = conn3x_file.valkey__config[each.key].revision
         auth    = conn3x_file.valkey__auth[each.key].revision
