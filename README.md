@@ -128,7 +128,7 @@ The `services` output gives the unit per host. On the Red Hat family a tmpfiles 
 
 ## Requirements
 
-Requires Conn3x v0.27.0 or later and systemd on each host, with a package mirror the host can reach. Setting `vm.overcommit_memory` needs a host that owns its kernel settings: a VM or bare metal, or a privileged container.
+Requires Conn3x v0.28.0 or later and systemd on each host, with a package mirror the host can reach. Setting `vm.overcommit_memory` needs a host that owns its kernel settings: a VM or bare metal, or a privileged container.
 
 ## Tested on
 
